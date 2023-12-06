@@ -1,0 +1,8 @@
+{
+    "dataUrl": "https://ecomakerspace.de/oekostrom/ecopower.json",
+    "wifiNetworks": {
+        "Netzwerkname1": "passwort1",
+        "Netzwerkname2": "passwort2",
+        "Netzwerkname3": "passwort3"
+  }
+}
