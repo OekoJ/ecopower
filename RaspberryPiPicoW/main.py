@@ -2,13 +2,9 @@ import network
 import urequests
 import ujson
 import time
-from datetime import datetime
 import json
-import machine # fuer realtimeclock rtc
-from machine import Pin, PWM, Timer
+from machine import Pin, PWM, Timer, RTC
 import re
-
-rtc = machine.RTC()
 
 def getJson():
     r = urequests.get(url)
@@ -32,7 +28,7 @@ def setClockFromHumantime(humantime):
     # print(e_wday, e_mday, e_mon, e_year, e_hour, e_min, e_sec, e_tz)
     # reformat time-tuple https://github.com/orgs/micropython/discussions/10616
     timeTuple = (int(e_year), {"Jan":1, "Feb":2, "Mar":3, "Apr":4, "May":5, "Jun":6, "Jul":7, "Aug":8, "Sep":9, "Oct":10, "Nov":11, "Dec":12}[e_mon], int(e_mday), 0, int(e_hour), int(e_min), int(e_sec), 0)
-    rtc.datetime(timeTuple)
+    RTC().datetime(timeTuple)
 
 def showValue():
     lastTimestamp = int(int(timestampNow/900)*900) # previous 15-minutes-value
@@ -80,8 +76,6 @@ def connectWiFi():
             time.sleep(10)
     setMeterZero()
     print(wlan.ifconfig())
-
-
 
 def disconnectWiFi():
     wlan.disconnect()
@@ -154,7 +148,7 @@ while True:
     while timestampNow < finalTimestamp:
         showValue()
         # print(time.gmtime(timestampNow))
-        # print(rtc.datetime())
+        # print(RTC().datetime())
         # print(int(timestampNow), finalTimestamp)
         time.sleep(60)
         timestampNow = time.time() 
