@@ -6,19 +6,19 @@ from datetime import datetime
 timestampNow = int(int(time.time()/900)*900) # rounded to last 15 minutes value, timestamp in seconds
 timestamp24hAgo = timestampNow - (24*60*60) # seconds
 
-# https://smard.api.proxy.bund.dev/app/chart_data/411/DE/index_quarterhour.json
+# https://www.smard.de/app/chart_data/411/DE/index_quarterhour.json
 # 411 - Prognostizierte Erzeugung: Gesamt | 411 statt 122
 def getLastUpdateTimestamp(filter):
-    url = 'https://smard.api.proxy.bund.dev/app/chart_data/' + str(filter) + '/DE/index_quarterhour.json'
-    # print('https://smard.api.proxy.bund.dev/app/chart_data/' + str(filter) + '/DE/index_quarterhour.json')
+    url = 'https://www.smard.de/app/chart_data/' + str(filter) + '/DE/index_quarterhour.json'
+    # print('https://www.smard.de/app/chart_data/' + str(filter) + '/DE/index_quarterhour.json')
     r = requests.get(url)
     allTimestamps = r.json()
     # print(json.dumps(allTimestamps, indent=2))
     return allTimestamps['timestamps'] # all timestamps
     
 def getValuesPerCategory(filter,timestamp):
-    url = 'https://smard.api.proxy.bund.dev/app/chart_data/' + str(filter) + '/DE/' + str(filter) + '_DE_quarterhour_' + str(timestamp) + '.json'
-    # print('https://smard.api.proxy.bund.dev/app/chart_data/' + str(filter) + '/DE/' + str(filter) + '_DE_quarterhour_' + str(timestamp) + '.json')
+    url = 'https://www.smard.de/app/chart_data/' + str(filter) + '/DE/' + str(filter) + '_DE_quarterhour_' + str(timestamp) + '.json'
+    # print('https://www.smard.de/app/chart_data/' + str(filter) + '/DE/' + str(filter) + '_DE_quarterhour_' + str(timestamp) + '.json')
     r = requests.get(url)
     try:
        decodedResult = r.json()
